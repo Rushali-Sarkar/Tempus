@@ -48,11 +48,11 @@ class WelcomeScreen extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Container(
               padding: EdgeInsets.symmetric(
-                vertical: 20.0,
-                horizontal: 20.0,
+                vertical: 10.0,
+                horizontal: 10.0,
               ),
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -66,7 +66,7 @@ class WelcomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                SizedBox(width: 10),
+                SizedBox(width: 10.0),
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
@@ -84,7 +84,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 FittedBox(
                   child: Container(
-                    margin: EdgeInsets.only(bottom: 30.0),
+                    margin: EdgeInsets.only(bottom: 100.0),
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                     decoration: BoxDecoration(
