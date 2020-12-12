@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'signup.dart';
+import 'constants.dart';
+import 'package:animated_button/animated_button.dart';
 
 void main() {
   runApp(LogIn());
 }
 
-class LogIn extends StatelessWidget {
+class LogIn extends StatefulWidget {
+  @override
+  _LoginPage createState() => _LoginPage();
+}
+
+class _LoginPage extends State<LogIn> {
+  bool _isHidden = true;
+
+  void _toggleVisibility() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,94 +93,76 @@ class LogIn extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 60.0,
+                        height: 40.0,
                       ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 30.0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Color(0xffffffff),
-                          borderRadius: BorderRadius.circular(40.0),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(right: 16),
-                              child: Icon(
-                                Icons.alternate_email_outlined,
-                                color: Color(0xff4ed6fd),
-                                size: 20.0,
-                              ),
-                            ),
-                            Expanded(
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  hintText: "Email Address",
-                                ),
-                                focusNode: FocusNode(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15.0,
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 30.0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Color(0xffffffff),
-                          borderRadius: BorderRadius.circular(40.0),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(right: 16),
-                              child: Icon(
-                                Icons.lock_open,
-                                color: Color(0xff4ed6fd),
-                                size: 20.0,
-                              ),
-                            ),
-                            Expanded(
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  hintText: "Password",
-                                ),
-                                focusNode: FocusNode(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      buildTextField("Email"),
                       SizedBox(
                         height: 20.0,
                       ),
+                      buildTextField("Password"),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                FlatButton(
+                                  color: Colors.transparent,
+                                  padding: EdgeInsets.all(0.0),
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Forgotten Password ?',
+                                    style: TextStyle(
+                                      color: kdeepblue,
+                                      fontSize: 10.0,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
                       Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 20.0,
-                          horizontal: 20.0,
-                        ),
                         decoration: BoxDecoration(
-                          color: Color(0xff022abb),
-                          borderRadius: BorderRadius.circular(30.0),
+                          color: Colors.transparent,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text(
-                              'Sign In',
-                              style: TextStyle(
-                                color: Color(0xffffffff),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0,
+                            FittedBox(
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 5.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                  color: kdeepblue,
+                                ),
+                                child: Center(
+                                  child: AnimatedButton(
+                                    color: Colors.transparent,
+                                    onPressed: () {},
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text("Log In",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .button
+                                                .copyWith(color: kwhite)),
+                                        SizedBox(width: 10),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -220,6 +217,47 @@ class LogIn extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildTextField(String hintText) {
+    return TextField(
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        hintText: hintText,
+        filled: true,
+        fillColor: kwhite,
+        hintStyle: TextStyle(
+          color: klightblue,
+          fontSize: 16.0,
+        ),
+        prefixIcon: hintText == "Email"
+            ? Icon(
+                Icons.email,
+                color: klightblue,
+              )
+            : Icon(
+                Icons.lock,
+                color: klightblue,
+              ),
+        suffixIcon: hintText == "Password"
+            ? IconButton(
+                onPressed: _toggleVisibility,
+                icon: _isHidden
+                    ? Icon(
+                        Icons.visibility_off,
+                        color: klightblue,
+                      )
+                    : Icon(
+                        Icons.visibility,
+                        color: klightblue,
+                      ),
+              )
+            : null,
+      ),
+      obscureText: hintText == "Password" ? _isHidden : false,
     );
   }
 }

@@ -66,6 +66,7 @@ class WelcomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+                SizedBox(width: 10),
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
